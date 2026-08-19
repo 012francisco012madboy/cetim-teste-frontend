@@ -34,8 +34,8 @@ export function ProductCard({ product }: Props) {
         aria-pressed={favorite}>
         {
           favorite ?
-            <HeartFilled className="text-2xl text-primary!" /> :
-            <HeartOutlined className="text-2xl text-muted-foreground!" />
+            <HeartFilled className="text-xl text-primary!" /> :
+            <HeartOutlined className="text-xl text-muted-foreground!" />
         }
       </CardAction>
       <div className="w-full aspect-video">
@@ -56,7 +56,7 @@ export function ProductCard({ product }: Props) {
         <div className="flex items-center justify-between gap-2">
           <CardTitle>{product.price}$</CardTitle>
           <div className="flex items-center gap-1">
-            <StarFilled className="text-lg text-primary!" />
+            <StarFilled className="text-sm text-primary!" />
             <ItemDescription className="line-clamp-2">{product.rating}</ItemDescription>
           </div>
         </div>

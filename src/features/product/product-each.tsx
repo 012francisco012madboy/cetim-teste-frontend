@@ -3,8 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Item, ItemContent, ItemDescription, ItemGroup, ItemHeader, ItemTitle } from "@/components/ui/item";
 import { GlobalContext } from "@/context/global-context";
 import type { Product } from "@/interface/product";
-import { HeartFilled, HeartOutlined } from "@ant-design/icons";
-import { StarIcon } from "lucide-react";
+import { HeartFilled, HeartOutlined, StarFilled } from "@ant-design/icons";
 import { useContext } from "react";
 
 interface Props {
@@ -31,7 +30,7 @@ const ProductEach = ({ product }: Props) => {
                     <ItemTitle className="text-2xl font-bold">{product.title}</ItemTitle>
                     <div className="flex items-center gap-2">
                         <div className="flex items-center gap-1">
-                            <StarIcon className="size-4 text-primary" />
+                            <StarFilled className="text-sm text-primary!" />
                             <ItemDescription>{product.rating}</ItemDescription>
                         </div>
                         <ItemDescription>•</ItemDescription>
@@ -41,12 +40,12 @@ const ProductEach = ({ product }: Props) => {
                     <ItemTitle className="text-xl font-bold">{product.price}$</ItemTitle>
                     {
                         isFavorite(product.id) ?
-                            <Button onClick={() => toggleFavorite(product.id)} className="max-w-48" variant="secondary">
-                                <HeartFilled className="text-2xl text-primary!" />
+                            <Button onClick={() => toggleFavorite(product.id)} className="max-w-fit" variant="secondary">
+                                <HeartFilled className="text-xl text-primary!" />
                                 Remover dos favoritoos
                             </Button> :
                             <Button onClick={() => toggleFavorite(product.id)} className="max-w-48" variant="default">
-                                <HeartOutlined className="text-2xl" />
+                                <HeartOutlined className="text-xl" />
                                 Adicionar aos favoritos
                             </Button>
                     }
