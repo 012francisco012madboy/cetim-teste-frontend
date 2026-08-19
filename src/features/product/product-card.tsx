@@ -6,12 +6,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { ItemDescription } from "@/components/ui/item"
 import { Heart, StarIcon } from "lucide-react"
+import { useNavigate } from "react-router"
 
 export function ProductCard() {
+  const navigate = useNavigate()
+
   return (
-    <Card className="relative mx-auto w-full max-w-sm pt-0">
-      <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
+    <Card className="relative mx-auto w-full max-w-sm pt-0" onClick={() => navigate("/product")}>
       <CardAction className="absolute right-0 z-30 p-(--card-spacing)">
         <Heart className="size-6 text-primary" />
       </CardAction>
@@ -26,14 +29,13 @@ export function ProductCard() {
           <CardTitle>Design systems meetup</CardTitle>
         </div>
         <CardDescription>
-          A practical talk on component APIs, accessibility, and shipping
-          faster.
+          A practical talk on component APIs, accessibility, and shipping faster.
         </CardDescription>
         <div className="flex items-center justify-between gap-2">
           <CardTitle>99$</CardTitle>
           <div className="flex items-center gap-1">
             <StarIcon className="size-4 text-primary"/>
-            <p className="text-muted-foreground">2.4</p>
+            <ItemDescription>2.4</ItemDescription>
           </div>
         </div>
       </CardHeader>
