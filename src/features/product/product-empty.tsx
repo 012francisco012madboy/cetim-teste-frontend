@@ -31,12 +31,15 @@ export function ProductEmpty() {
                     }
                 </EmptyDescription>
             </EmptyHeader>
-            <EmptyContent>
-                <Button variant="outline" onClick={() => setSearch("")}>
-                    <XIcon/>
-                    Cancelar
-                </Button>
-            </EmptyContent>
+            {
+                search != "" &&
+                <EmptyContent>
+                    <Button variant="outline" onClick={() => setSearch("")}>
+                        <XIcon />
+                        Cancelar
+                    </Button>
+                </EmptyContent>
+            }
         </Empty>
     )
 }

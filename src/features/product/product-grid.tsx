@@ -31,10 +31,10 @@ const ProductGrid = () => {
                             <ProductCardSkeleton key={i} />
                         ))}
                     </div> :
-                    products.length === 0 ?
+                    products?.length === 0 ?
                         <ProductEmpty /> :
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {products.map((product) => (
+                            {products?.map((product) => (
                                 <ProductCard key={product.id} product={product} />
                             ))}
                         </div>

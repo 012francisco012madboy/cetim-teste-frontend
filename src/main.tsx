@@ -5,9 +5,12 @@ import "./index.css"
 import { ThemeProvider } from "@/components/theme-provider.tsx"
 import Rotas from "./router"
 import GlobalProvider from "./context/global-provider"
+import { Toaster } from "./components/ui/toast"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
+    <Toaster/>
+    
     <ThemeProvider>
       <GlobalProvider>
         <Rotas />
