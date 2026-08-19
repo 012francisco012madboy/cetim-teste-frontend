@@ -38,9 +38,18 @@ export default function ProductCategoryButton({ selected, onSelect }: Props) {
     }
 
     return (
+        categories.length != 0 &&
         <div className="flex flex-col gap-2">
             <div className="flex justify-end">
-                <Button variant="ghost" className="max-w-fit text-xs" disabled={!selected} onClick={() => onSelect(null)}>Limpar filtro</Button>
+                <Button variant="ghost" className="max-w-fit text-xs"
+                    disabled={!selected}
+                    onClick={() => {
+                        onSelect(null);
+                        scrollRef.current?.scrollTo({ left: 0, behavior: "smooth" });
+                    }}
+                >
+                    Limpar filtro
+                </Button>
             </div>
             <div className="flex items-center gap-1">
                 <Button
@@ -57,7 +66,7 @@ export default function ProductCategoryButton({ selected, onSelect }: Props) {
                     onScroll={updateScrollState}
                     role="group"
                     aria-label="Filtrar por categoria"
-                    className="flex gap-2 overflow-x-auto sm:flex-wrap sm:overflow-visible scrollbar-hide"
+                    className="flex gap-1 sm:gap-2 overflow-x-auto sm:flex-wrap sm:overflow-visible scrollbar-hide"
                 >
                     <Button
                         onClick={() => onSelect(null)}
