@@ -8,11 +8,13 @@ import { Button } from "@/components/ui/button";
 import { ItemDescription } from "@/components/ui/item";
 import { GlobalContext } from "@/context/global-context";
 import { ProductEmpty } from "./product-empty";
+import { useDebouncedValue } from "@/hooks/use-debounced-value";
 
 const ProductGrid = () => {
     const { page, setPage, search, category, setCategory } = useContext(GlobalContext)
+    const debouncedSearch = useDebouncedValue(search, 400);
 
-    const { products, total, isLoading, limit } = useProducts({ search, category, page });
+    const { products, total, isLoading, limit } = useProducts({ search: debouncedSearch, category, page });
 
     const totalPages = Math.max(1, Math.ceil(total / limit));
 

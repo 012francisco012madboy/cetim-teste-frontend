@@ -54,7 +54,7 @@ export default function ProductCategoryButton({ selected, onSelect }: Props) {
             <div className="flex items-center gap-1">
                 <Button
                     variant="secondary"
-                    className="w-8 rounded-full"
+                    className="w-8 rounded-full flex sm:hidden"
                     aria-label="Rolar categorias para a esquerda"
                     disabled={!canScrollLeft}
                     onClick={() => scrollByAmount(-150)}
@@ -93,7 +93,7 @@ export default function ProductCategoryButton({ selected, onSelect }: Props) {
                     onClick={() => scrollByAmount(150)}
                     disabled={!canScrollRight}
                     variant="secondary"
-                    className="w-8 rounded-full"
+                    className="w-8 rounded-full flex sm:hidden"
                     aria-label="Rolar categorias para a direita"
                 >
                     <ChevronRight className="size-4" />
