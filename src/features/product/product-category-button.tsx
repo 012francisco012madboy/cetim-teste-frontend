@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { GlobalContext } from "@/context/global-context";
 import { getCategories } from "@/services/product-service";
-import { useContext, useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 interface Props {
     selected: string | null;
@@ -12,31 +13,83 @@ export default function ProductCategoryButton({ selected, onSelect }: Props) {
     const { search } = useContext(GlobalContext)
     const [categories, setCategories] = useState<string[]>([]);
 
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    const [canScrollLeft, setCanScrollLeft] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(false);
+
     useEffect(() => {
-        getCategories()
-            .then(setCategories)
-            .catch(() => setCategories([]));
+        getCategories().then(setCategories).catch(() => setCategories([]));
     }, []);
 
-    return (
-        <div className="flex flex-wrap gap-2">
-            <Button
-                onClick={() => onSelect(null)}
-                variant={(selected === null || search !== "") ? "default" : "outline"}
-            >
-                Todas
-            </Button>
+    function updateScrollState() {
+        const el = scrollRef.current;
+        if (!el) return;
+        setCanScrollLeft(el.scrollLeft > 0);
+        setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+    }
 
-            {categories.map((cat) => (
+    useEffect(() => {
+        updateScrollState();
+    }, [categories]);
+
+    function scrollByAmount(amount: number) {
+        scrollRef.current?.scrollBy({ left: amount, behavior: "smooth" });
+    }
+
+    return (
+        <div className="flex flex-col gap-2">
+            <div className="flex justify-end">
+                <Button variant="ghost" className="max-w-fit text-xs" disabled={!selected} onClick={() => onSelect(null)}>Limpar filtro</Button>
+            </div>
+            <div className="flex items-center gap-1">
                 <Button
-                    key={cat}
-                    onClick={() => onSelect(cat)}
-                    aria-pressed={selected === cat}
-                    variant={(selected === cat && search === "") ? "default" : "outline"}
+                    variant="secondary"
+                    className="w-8 rounded-full"
+                    aria-label="Rolar categorias para a esquerda"
+                    disabled={!canScrollLeft}
+                    onClick={() => scrollByAmount(-150)}
                 >
-                    {cat}
+                    <ChevronLeft className="size-4" />
                 </Button>
-            ))}
+                <div
+                    ref={scrollRef}
+                    onScroll={updateScrollState}
+                    role="group"
+                    aria-label="Filtrar por categoria"
+                    className="flex gap-2 overflow-x-auto sm:flex-wrap sm:overflow-visible scrollbar-hide"
+                >
+                    <Button
+                        onClick={() => onSelect(null)}
+                        variant={(selected === null || search !== "") ? "default" : "outline"}
+                        className="shrink-0"
+                    >
+                        Todas
+                    </Button>
+                    {
+                        categories.map((cat) => (
+                            <Button
+                                key={cat}
+                                onClick={() => onSelect(cat)}
+                                aria-pressed={selected === cat}
+                                variant={(selected === cat && search === "") ? "default" : "outline"}
+                                className="shrink-0"
+                            >
+                                {cat}
+                            </Button>
+                        ))
+                    }
+                </div>
+                <Button
+                    onClick={() => scrollByAmount(150)}
+                    disabled={!canScrollRight}
+                    variant="secondary"
+                    className="w-8 rounded-full"
+                    aria-label="Rolar categorias para a direita"
+                >
+                    <ChevronRight className="size-4" />
+                </Button>
+            </div>
         </div>
     );
 }
