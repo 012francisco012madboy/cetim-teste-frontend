@@ -7,35 +7,42 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { ItemDescription } from "@/components/ui/item"
+import type { Product } from "@/interface/product"
 import { Heart, StarIcon } from "lucide-react"
 import { useNavigate } from "react-router"
 
-export function ProductCard() {
+interface ProductCardProps {
+  product: Product
+}
+
+export function ProductCard({ product }: ProductCardProps) {
   const navigate = useNavigate()
 
   return (
-    <Card className="relative mx-auto w-full max-w-sm pt-0" onClick={() => navigate("/product")}>
+    <Card className="relative mx-auto w-full max-w-sm pt-0 cursor-pointer" onClick={() => navigate(`product/${product.id}`)}>
       <CardAction className="absolute right-0 z-30 p-(--card-spacing)">
         <Heart className="size-6 text-primary" />
       </CardAction>
-      <img
-        src="https://avatar.vercel.sh/shadcn1"
-        alt="Event cover"
-        className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
-      />
+      <div className="w-full aspect-video">
+        <img
+          src={product.thumbnail}
+          alt={product.title}
+          className="aspect-video w-full object-contain"
+        />
+      </div>
       <CardHeader>
-        <Badge variant="secondary">Featured</Badge>
+        <Badge variant="secondary" className="capitalize w-fit">{product.category}</Badge>
         <div className="flex items-center justify-between gap-2">
-          <CardTitle>Design systems meetup</CardTitle>
+          <CardTitle>{product.title}</CardTitle>
         </div>
         <CardDescription>
-          A practical talk on component APIs, accessibility, and shipping faster.
+          {product.description}
         </CardDescription>
         <div className="flex items-center justify-between gap-2">
-          <CardTitle>99$</CardTitle>
+          <CardTitle>{product.price}$</CardTitle>
           <div className="flex items-center gap-1">
-            <StarIcon className="size-4 text-primary"/>
-            <ItemDescription>2.4</ItemDescription>
+            <StarIcon className="size-4 text-primary" />
+            <ItemDescription>{product.rating}</ItemDescription>
           </div>
         </div>
       </CardHeader>

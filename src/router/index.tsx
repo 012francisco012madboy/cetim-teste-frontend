@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router"
-import Index from "../../pages";
+import Index from "../pages";
 import Product from "@/pages/product";
 
 const Rotas = () => {

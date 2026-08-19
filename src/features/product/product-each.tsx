@@ -27,7 +27,7 @@ const ProductEach = () => {
                     </div>
                     <ItemDescription>A practical talk on component APIs, accessibility, and shipping faster.</ItemDescription>
                     <ItemTitle className="text-xl font-bold">99$</ItemTitle>
-                    <Button className="max-w-48 cursor-pointer">Adicionar aos favoritos</Button>
+                    <Button className="max-w-48">Adicionar aos favoritos</Button>
                 </ItemContent>
             </Item>
         </ItemGroup>

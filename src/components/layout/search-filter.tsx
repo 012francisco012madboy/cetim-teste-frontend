@@ -1,6 +1,6 @@
 "use client"
 
-import { SearchIcon, SlidersHorizontal } from "lucide-react"
+import { SearchIcon, SlidersHorizontal, XIcon } from "lucide-react"
 
 import {
   DropdownMenu,
@@ -15,18 +15,28 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "@/components/ui/input-group"
+import { useContext } from "react";
+import { GlobalContext } from "@/context/global-context";
 
 export function SearchFilter() {
+  const { search, setSearch } = useContext(GlobalContext);
+
   return (
     <div className="w-full">
       <InputGroup>
-      <InputGroupAddon>
-        <SearchIcon />
-      </InputGroupAddon>
-        <InputGroupInput placeholder="Buscar produto" />
+        <InputGroupAddon>
+        {
+          search != "" ?
+          <InputGroupButton variant="ghost" onClick={() => setSearch("")}>
+            <XIcon/>
+          </InputGroupButton> :
+          <SearchIcon />
+        }
+        </InputGroupAddon>
+        <InputGroupInput placeholder="Buscar produto" value={search} onChange={(e) => setSearch(e.target.value)} />
         <InputGroupAddon align="inline-end">
           <DropdownMenu>
-            <DropdownMenuTrigger render={<InputGroupButton variant="secondary" className="p-2 h-full! cursor-pointer">Filtro <SlidersHorizontal className="size-4" /></InputGroupButton>} />
+            <DropdownMenuTrigger render={<InputGroupButton variant="secondary" className="p-2 h-full">Filtro <SlidersHorizontal className="size-4" /></InputGroupButton>} />
             <DropdownMenuContent align="end" sideOffset={8} alignOffset={-4}>
               <DropdownMenuGroup>
                 <DropdownMenuItem>Todos</DropdownMenuItem>

@@ -10,7 +10,7 @@ const Product = () => {
     return (
         <Container>
             <Content>
-                <Button variant="ghost" className="max-w-48 cursor-pointer" onClick={() => navigate(-1)}>
+                <Button variant="ghost" className="max-w-48" onClick={() => navigate(-1)}>
                     <ArrowLeft />
                     Voltar à página inicial
                 </Button>

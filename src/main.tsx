@@ -3,12 +3,15 @@ import { createRoot } from "react-dom/client"
 
 import "./index.css"
 import { ThemeProvider } from "@/components/theme-provider.tsx"
-import Rotas from "./app/router"
+import Rotas from "./router"
+import GlobalProvider from "./context/global-provider"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider>
-      <Rotas/>
+      <GlobalProvider>
+        <Rotas />
+      </GlobalProvider>
     </ThemeProvider>
   </StrictMode>
 )
