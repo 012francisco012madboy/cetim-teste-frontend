@@ -7,21 +7,36 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { ItemDescription } from "@/components/ui/item"
+import { GlobalContext } from "@/context/global-context"
 import type { Product } from "@/interface/product"
-import { Heart, StarIcon } from "lucide-react"
+import { useContext } from "react"
 import { useNavigate } from "react-router"
+import { HeartFilled, HeartOutlined, StarFilled } from "@ant-design/icons"
 
 interface Props {
   product: Product
 }
 
 export function ProductCard({ product }: Props) {
+  const { isFavorite, toggleFavorite } = useContext(GlobalContext)
+  const favorite = isFavorite(product.id)
+
   const navigate = useNavigate()
 
   return (
     <Card className="relative mx-auto w-full max-w-sm pt-0 cursor-pointer" onClick={() => navigate(`product/${product.id}`)}>
-      <CardAction className="absolute right-0 z-30 p-(--card-spacing)">
-        <Heart className="size-6 text-primary" />
+      <CardAction className="absolute right-0 z-30 p-(--card-spacing)"
+        onClick={(e) => {
+          e.stopPropagation()
+          toggleFavorite(product.id)
+        }}
+        aria-label={favorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+        aria-pressed={favorite}>
+        {
+          favorite ?
+            <HeartFilled className="text-2xl text-primary!" /> :
+            <HeartOutlined className="text-2xl text-muted-foreground!" />
+        }
       </CardAction>
       <div className="w-full aspect-video">
         <img
@@ -41,7 +56,7 @@ export function ProductCard({ product }: Props) {
         <div className="flex items-center justify-between gap-2">
           <CardTitle>{product.price}$</CardTitle>
           <div className="flex items-center gap-1">
-            <StarIcon className="size-4 text-primary" />
+            <StarFilled className="text-lg text-primary!" />
             <ItemDescription className="line-clamp-2">{product.rating}</ItemDescription>
           </div>
         </div>

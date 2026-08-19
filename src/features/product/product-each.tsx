@@ -1,14 +1,19 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Item, ItemContent, ItemDescription, ItemGroup, ItemHeader, ItemTitle } from "@/components/ui/item";
+import { GlobalContext } from "@/context/global-context";
 import type { Product } from "@/interface/product";
+import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import { StarIcon } from "lucide-react";
+import { useContext } from "react";
 
 interface Props {
     product: Product
 }
 
 const ProductEach = ({ product }: Props) => {
+    const { isFavorite, toggleFavorite } = useContext(GlobalContext)
+
     return (
         <ItemGroup>
             <Item variant="default" className="grid lg:grid-cols-2 items-start gap-4">
@@ -34,7 +39,17 @@ const ProductEach = ({ product }: Props) => {
                     </div>
                     <ItemDescription>{product.description}</ItemDescription>
                     <ItemTitle className="text-xl font-bold">{product.price}$</ItemTitle>
-                    <Button className="max-w-48">Adicionar aos favoritos</Button>
+                    {
+                        isFavorite(product.id) ?
+                            <Button onClick={() => toggleFavorite(product.id)} className="max-w-48" variant="secondary">
+                                <HeartFilled className="text-2xl text-primary!" />
+                                Remover dos favoritoos
+                            </Button> :
+                            <Button onClick={() => toggleFavorite(product.id)} className="max-w-48" variant="default">
+                                <HeartOutlined className="text-2xl" />
+                                Adicionar aos favoritos
+                            </Button>
+                    }
                 </ItemContent>
             </Item>
         </ItemGroup>
