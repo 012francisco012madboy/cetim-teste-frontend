@@ -7,7 +7,7 @@ const Rotas = () => {
         <BrowserRouter>
         <Routes>
             <Route path="/" element={<Index/>}/>
-            <Route path="/product" element={<Product/>}/>
+            <Route path="/product/:id" element={<Product/>}/>
         </Routes>
         </BrowserRouter>
     );

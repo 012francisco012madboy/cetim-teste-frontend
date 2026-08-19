@@ -11,11 +11,11 @@ import type { Product } from "@/interface/product"
 import { Heart, StarIcon } from "lucide-react"
 import { useNavigate } from "react-router"
 
-interface ProductCardProps {
+interface Props {
   product: Product
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product }: Props) {
   const navigate = useNavigate()
 
   return (
@@ -42,7 +42,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <CardTitle>{product.price}$</CardTitle>
           <div className="flex items-center gap-1">
             <StarIcon className="size-4 text-primary" />
-            <ItemDescription>{product.rating}</ItemDescription>
+            <ItemDescription className="line-clamp-2">{product.rating}</ItemDescription>
           </div>
         </div>
       </CardHeader>

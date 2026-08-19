@@ -1,11 +1,10 @@
-import { Search, XIcon } from "lucide-react"
+import { CircleAlert, XIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
     Empty,
     EmptyContent,
     EmptyDescription,
     EmptyHeader,
-    EmptyMedia,
     EmptyTitle,
 } from "@/components/ui/empty"
 import { Fragment, useContext } from "react"
@@ -17,9 +16,7 @@ export function ProductEmpty() {
     return (
         <Empty>
             <EmptyHeader>
-                <EmptyMedia variant="icon">
-                    <Search />
-                </EmptyMedia>
+                <CircleAlert className="size-6" />
                 <EmptyTitle>Sem resultado</EmptyTitle>
                 <EmptyDescription className="max-w-xs text-pretty">
                     Nenhum resultado encontrado {
