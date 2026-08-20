@@ -7,7 +7,7 @@ import {
     EmptyTitle,
 } from "@/components/ui/empty"
 
-export function Index404() {
+const Index404 = () => {
     return (
         <Container>
             <Empty>
@@ -24,7 +24,8 @@ export function Index404() {
                     </EmptyDescription>
                 </EmptyContent>
             </Empty>
-
         </Container>
-    )
+    );
 }
+
+export default Index404;
