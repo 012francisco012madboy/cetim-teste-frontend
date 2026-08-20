@@ -41,8 +41,10 @@ export default function ProductCategoryButton({ selected, onSelect }: Props) {
         categories.length != 0 &&
         <div className="flex flex-col gap-2">
             <div className="flex justify-end">
-                <Button variant="ghost" className="max-w-fit text-xs"
+                <Button
+                    variant="ghost"
                     disabled={!selected}
+                    className="max-w-fit text-xs"
                     onClick={() => {
                         onSelect(null);
                         scrollRef.current?.scrollTo({ left: 0, behavior: "smooth" });
@@ -70,6 +72,7 @@ export default function ProductCategoryButton({ selected, onSelect }: Props) {
                 >
                     <Button
                         onClick={() => onSelect(null)}
+                        aria-pressed={selected === null || search !== ""}
                         variant={(selected === null || search !== "") ? "default" : "outline"}
                         className="shrink-0"
                     >

@@ -18,7 +18,6 @@ export function Index404() {
                         ou volta à página inicial.
                     </EmptyDescription>
                 </EmptyHeader>
-
                 <EmptyContent>
                     <EmptyDescription>
                         Desejas voltar? <a href="/">Página inicial</a>

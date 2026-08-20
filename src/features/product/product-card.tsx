@@ -24,14 +24,27 @@ export function ProductCard({ product }: Props) {
   const navigate = useNavigate()
 
   return (
-    <Card className="relative mx-auto w-full max-w-sm pt-0 cursor-pointer" onClick={() => navigate(`product/${product.id}`)}>
+    <Card
+      role="link"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          navigate(`/product/${product.id}`);
+        }
+      }}
+      aria-label={`Ver detalhes de ${product.title}`}
+      onClick={() => navigate(`/product/${product.id}`)}
+      className="relative mx-auto w-full max-w-sm pt-0 cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+    >
       <CardAction className="absolute right-0 z-30 p-(--card-spacing)"
         onClick={(e) => {
           e.stopPropagation()
           toggleFavorite(product.id)
         }}
+        aria-pressed={favorite}
         aria-label={favorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
-        aria-pressed={favorite}>
+      >
         {
           favorite ?
             <HeartFilled className="text-xl text-primary!" /> :
@@ -46,18 +59,23 @@ export function ProductCard({ product }: Props) {
         />
       </div>
       <CardHeader>
-        <Badge variant="secondary" className="capitalize w-fit">{product.category}</Badge>
+        <Badge
+          variant="secondary"
+          className="capitalize w-fit"
+        >
+          {product.category}
+        </Badge>
         <div className="flex items-center justify-between gap-2">
           <CardTitle>{product.title}</CardTitle>
         </div>
-        <CardDescription>
-          {product.description}
-        </CardDescription>
+        <CardDescription>{product.description}</CardDescription>
         <div className="flex items-center justify-between gap-2">
           <CardTitle>{product.price}$</CardTitle>
           <div className="flex items-center gap-1">
             <StarFilled className="text-sm text-primary!" />
-            <ItemDescription className="line-clamp-2">{product.rating}</ItemDescription>
+            <ItemDescription className="line-clamp-2">
+              {product.rating}
+            </ItemDescription>
           </div>
         </div>
       </CardHeader>

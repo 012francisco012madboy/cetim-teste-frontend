@@ -16,11 +16,21 @@ export function SearchFilter() {
       <InputGroupAddon>
         <SearchIcon />
       </InputGroupAddon>
-      <InputGroupInput placeholder="Buscar produto" value={search} onChange={(e) => setSearch(e.target.value)} />
+      <InputGroupInput
+        value={search}
+        id="product-search"
+        aria-label="Buscar produto"
+        placeholder="Buscar produto"
+        onChange={(e) => setSearch(e.target.value)}
+      />
       <InputGroupAddon align="inline-end">
         {
           search != "" &&
-          <InputGroupButton variant="ghost" onClick={() => setSearch("")}>
+          <InputGroupButton
+            variant="ghost"
+            aria-label="Limpar pesquisa"
+            onClick={() => setSearch("")}
+          >
             <XIcon />
           </InputGroupButton>
         }

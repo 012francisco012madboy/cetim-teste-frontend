@@ -25,7 +25,12 @@ const ProductGrid = () => {
 
     return (
         <Content>
-            <ProductCategoryButton selected={category} onSelect={handleCategorySelect} />
+            <ProductCategoryButton
+                aria-live="polite"
+                selected={category}
+                aria-busy={isLoading}
+                onSelect={handleCategorySelect}
+            />
             {
                 isLoading ?
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -46,17 +51,24 @@ const ProductGrid = () => {
                 !isLoading && totalPages > 1 && (
                     <div className="flex items-center justify-center gap-2">
                         <Button
-                            onClick={() => setPage((p) => p - 1)}
-                            disabled={page === 1}
                             variant="secondary"
+                            disabled={page === 1}
+                            aria-label="Página anterior"
+                            onClick={() => setPage((p) => p - 1)}
                         >
                             Anterior
                         </Button>
-                        <ItemDescription>Página {page} de {totalPages}</ItemDescription>
+                        <ItemDescription
+                            aria-live="polite"
+                            aria-atomic="true"
+                        >
+                            Página {page} de {totalPages}
+                        </ItemDescription>
                         <Button
-                            onClick={() => setPage((p) => p + 1)}
-                            disabled={page === totalPages}
                             variant="secondary"
+                            aria-label="Próxima página"
+                            disabled={page === totalPages}
+                            onClick={() => setPage((p) => p + 1)}
                         >
                             Próxima
                         </Button>
