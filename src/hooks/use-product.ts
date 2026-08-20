@@ -1,62 +1,33 @@
+import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { toast } from "@/components/ui/toast";
-import type { Product } from "@/interface/product";
 import { getErrorMessage, getProductById } from "@/services/product-service";
-import { useEffect, useState } from "react";
 
 export function useProduct(id: string | undefined) {
-    const [product, setProduct] = useState<Product | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const { data: product, isLoading, error } = useQuery({
+        queryKey: ["product", id],
+        queryFn: () => getProductById(id!),
+        enabled: !!id,
+    });
 
     useEffect(() => {
-        let isMounted = true;
-
         if (!id) {
             toast.add({
                 type: "error",
                 description: "Produto inválido.",
                 priority: "high",
             });
-
-            return () => {
-                isMounted = false;
-            };
+            return;
         }
 
-        const loadProduct = async () => {
-            setIsLoading(true);
-            setError(null);
+        if (error) {
+            toast.add({
+                type: "error",
+                description: getErrorMessage(error),
+                priority: "high",
+            });
+        }
+    }, [id, error]);
 
-            try {
-                const data = await getProductById(id);
-
-                if (isMounted) {
-                    setProduct(data);
-                }
-            } catch (e) {
-                if (isMounted) {
-                    setError(getErrorMessage(e));
-
-                    toast.add({
-                        type: "error",
-                        description: getErrorMessage(e),
-                        priority: "high",
-                    });
-                }
-            } finally {
-                if (isMounted) {
-                    setIsLoading(false);
-                }
-            }
-        };
-
-        loadProduct();
-
-        return () => {
-            isMounted = false;
-        };
-    }, [id]);
-
-
-    return { product, isLoading, error };
+    return { product: product ?? null, isLoading, error };
 }
