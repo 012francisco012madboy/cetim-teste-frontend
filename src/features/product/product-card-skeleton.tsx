@@ -3,7 +3,10 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export function ProductCardSkeleton() {
   return (
-    <Card className="relative mx-auto w-full max-w-sm">
+    <Card
+      data-testid="product-skeleton"
+      className="relative mx-auto w-full max-w-sm"
+    >
       <CardContent>
         <Skeleton className="aspect-video w-full" />
       </CardContent>
